@@ -28,12 +28,6 @@ module.exports = {
       network_id: 4,
       gas: 6750000,
     },
-    rinkeby0: {
-      provider: 'localhost',
-      port: 8545,
-      network_id: 4,
-      gas: 6750000,
-    },
     kovan: {
       provider: provider('kovan'),
       network_id: 5,

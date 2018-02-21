@@ -1,5 +1,16 @@
 # playg
 
+## Install
+
+`yarn install`
+
+## Usage
+
+1. First start testrpc: `yarn testrpc`
+
+2. Then compile the contracts & deploy them to the testrpc: `yarn truffle:migrate`
+
+
 ## NOTES
 
 ### Rinkeyby stuff

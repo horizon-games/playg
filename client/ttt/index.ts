@@ -3,42 +3,42 @@ import * as ethers from 'ethers'
 
 const web3 = (global as any).web3
 
-let provider: ethers.providers.Web3Provider
+let provider: ethers.providers.Web3Provider | ethers.providers.JsonRpcProvider
 let signer: ethers.providers.Web3Signer
 
 // if (web3) {
   provider = new ethers.providers.Web3Provider(web3.currentProvider)
   signer = (provider as ethers.providers.Web3Provider).getSigner()
 // } else {
-  // provider = new ethers.providers.JsonRpcProvider('http://localhost:7545')
+  // provider = new ethers.providers.JsonRpcProvider('http://localhost:8545')
 // }
 
 const contract = require('../../build/contracts/SimpleStore.json')
-const contractMYT = require('../../build/contracts/MyToken.json')
+// const contractMYT = require('../../build/contracts/MyToken.json')
 
 // NOTE: the contract address will change during development after each truffle migration
 // since contracts are immutable. This is a little bit of a pain, perhaps
 // there is a kind of pipeline to help with this and dev env variable to load contract
 // addresses, maybe by using ethers instead with our custom work
-const playg = new ethers.Contract('0x4ffb9175748a802792f41128cc4dc8b79a7e9181', contract.abi, signer)
+const simpleStore = new ethers.Contract('0x4ffb9175748a802792f41128cc4dc8b79a7e9181', contract.abi, signer)
 
-const myt = new ethers.Contract('0x434547ffd33905c570b7509275fe277b24e4bb53', contractMYT.abi, signer)
+// const myt = new ethers.Contract('0x434547ffd33905c570b7509275fe277b24e4bb53', contractMYT.abi, signer)
 
-console.log(playg)
-
-// playg.setValue('yes').then((ret) => {
-//   console.log('ret', ret)
-// }).catch((err) => {
-//   console.log('err', err)
-// })
+console.log(simpleStore)
 
 {
   (global as any).ethers = ethers;
-  (global as any).playg = playg;
-  (global as any).myt = myt
+  (global as any).simpleStore = simpleStore;
+  // (global as any).myt = myt
 }
 
-playg.getValue().then((n) => {
+// simpleStore.setValue('ian').then(n => {
+//   console.log(n)
+// }).catch(err => {
+//   console.log(err)
+// })
+
+simpleStore.getValue().then((n) => {
   console.log('name:', n)
 }).catch((err) => {
   console.log('err', err)

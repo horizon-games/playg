@@ -1,0 +1,47 @@
+{
+  "version": "2.7.1",
+
+  "compilerOptions": {
+    "target": "es5",
+    "sourceMap": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": false,
+    "declaration": false,
+    "downlevelIteration": true,
+    "importHelpers": true,
+    "removeComments": false,
+
+    "strictNullChecks": true,
+    "noImplicitUseStrict": true,
+    "noImplicitAny": false,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedParameters": false,
+
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": false,
+    "checkJs": false,
+
+    "baseUrl": ".",
+
+    "lib": [
+      "dom",
+      "es2015"
+    ],
+    
+    "plugins": [
+    ]
+  },
+
+  "include": [
+    "client/**/*.ts",
+    "client/**/*.tsx"
+  ],
+
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

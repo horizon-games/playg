@@ -35,17 +35,17 @@ const buildConfig = (name, app) => {
       publicPath: '/'
     },
     plugins: [
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor'
-      }),
+      // new webpack.optimize.CommonsChunkPlugin({
+      //   name: 'vendor'
+      // }),
       new webpack.NamedModulesPlugin(),
       new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoEmitOnErrorsPlugin(),
       new ForkTsCheckerWebpackPlugin({
         tslint: true,
         checkSyntacticErrors: true,
         watch: ['./client'] // optional but improves performance (fewer stat calls)
       }),
-      // new webpack.NoEmitOnErrorsPlugin(),
       // new webpack.DefinePlugin(shared.appEnvVars('config/app.dev.env')),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify('development'),

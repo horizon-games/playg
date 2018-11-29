@@ -1,3 +1,5 @@
 .vscode
 build
+dist
 node_modules
+networks/127001.json

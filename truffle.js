@@ -1,47 +1,41 @@
-require('dotenv').config()
-const HDWalletProvider = require('truffle-hdwallet-provider')
+require("dotenv").config()
+var HDWalletProvider = require("truffle-hdwallet-provider")
 
 const provider = network => () => {
   return new HDWalletProvider(
-    process.env.MNEMONIC,
-    `https://${network}.infura.io/${process.env.INFURA_API_KEY}`
+    process.env.ETH_MNENOMIC,
+    `https://${network}.infura.io/v3/${process.env.INFURA_API_KEY}`
   )
 }
 
 module.exports = {
-  mocha: {
-    useColors: true
-  },
   networks: {
-    mainnet: {
-      provider: provider('mainnet'),
-      network_id: 1,
-      gas: 6750000
-    },
-    ropsten: {
-      provider: provider('ropsten'),
-      network_id: 3,
-      gas: 4712433
+    ganache: {
+      network_id: 127001,
+      host: "127.0.0.1",
+      port: 8545,
+      gas: "0xfffffffffff",
+      gasPrice: "0x01"
     },
     rinkeby: {
-      provider: provider('rinkeby'),
       network_id: 4,
-      gas: 6750000,
-    },
-    kovan: {
-      provider: provider('kovan'),
-      network_id: 5,
-      gas: 4000000,
-    },
-    testrpc: {
-      host: 'localhost',
-      port: 8545,
-      network_id: '*'
-    },
-    ganache: {
-      host: 'localhost',
-      port: 7545,
-      network_id: '*',
+      provider: provider('rinkeby'),
+      gas: 6750000
+    }
+  },
+  solc: {
+    optimizer: {
+      enabled: true,
+      runs: 200
+    }
+  },
+  mocha: {
+    reporter: "eth-gas-reporter",
+    reporterOptions: {
+      currency: "USD",
+      gasPrice: 21,
+      outputFile: "/dev/null",
+      showTimeSpent: true
     }
   }
-};
+}

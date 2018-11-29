@@ -1,77 +1,58 @@
 {
-  "name": "dgame",
+  "name": "playg",
   "version": "0.1.0",
   "private": true,
   "license": "none",
   "scripts": {
-    "start": "yarn dev",
-    "dev": "webpack-dev-server --mode development --progress --color --disable-host-check --config config/webpack/webpack.config.dev.js",
-    "build": "yarn dist:build",
-    "dist": "yarn dist:build",
-    "dist:build": "yarn dist:clean && webpack --color --config config/webpack/webpack.config.dist.js",
-    "dist:clean": "rm -rf ./dist",
-    "dist:client": "serve --silent --port 3000 ./dist",
-    "dist:server": "node dist/server",
-    "dist:analyze": "serve --silent --open --port 5555 ./dist/.stats",
-    "lint": "tslint -c tslint.json client/**/*.ts client/**/*.tsx",
-    "test:watch": "jest --watchAll",
-    "test": "jest --ci --runInBand",
-    "truffle:migrate": "truffle migrate --network=testrpc --reset",
-    "testrpc": "ganache-cli -m \"dose weasel clever culture letter volume endorse used harvest ripple circle install\""
+    "build": "truffle compile --all && yarn gen:contract-typings && tsc -b",
+    "migrate": "yarn clean:networks && truffle migrate --network ganache --reset",
+    "test": "yarn clean:networks && tsc -b && truffle test --network ganache dist/**/*.spec.js",
+    "clean": "rm -rf dist build && yarn clean:networks",
+    "clean:networks": "rm -f networks/127001.json",
+    "gen:contract-typings": "typechain --target ethers --outDir typings/contracts './build/contracts/*.json'",
+    "lint": "yarn lint:ts && yarn lint:sol",
+    "lint:fix": "yarn lint:ts:fix && yarn lint:sol:fix",
+    "lint:sol": "solium -d .",
+    "lint:sol:fix": "solium -d contracts/ --fix",
+    "lint:ts": "tslint -c tslint.json -p .",
+    "lint:ts:fix": "tslint -c tslint.json -p . --fix",
+    "ganache": "ganache-cli --networkId ${npm_package_config_ganacheNetworkID} --host 0.0.0.0 --port ${npm_package_config_ganachePort} --gasLimit ${npm_package_config_ganacheGasLimit} --gasPrice ${npm_package_config_ganacheGasPrice} --defaultBalanceEther ${npm_package_config_etherBalance} --deterministic --mnemonic \"${npm_package_config_mnemonic}\" ${npm_package_config_extra}",
+    "ganache:verbose": "ganache-cli --networkId ${npm_package_config_ganacheNetworkID} --verbose --host 0.0.0.0 --port ${npm_package_config_ganachePort} --gasLimit ${npm_package_config_ganacheGasLimit} --gasPrice ${npm_package_config_ganacheGasPrice} --defaultBalanceEther ${npm_package_config_etherBalance} --deterministic --mnemonic \"${npm_package_config_mnemonic}\" ${npm_package_config_extra}",
+    "ganache:stop": "ps aux | grep ganache-cli | grep -v grep | awk '{print $2}' | xargs kill -9"
+  },
+  "config": {
+    "mnemonic": "dose weasel clever culture letter volume endorse used harvest ripple circle install",
+    "ganacheNetworkID": 127001,
+    "ganachePort": 8545,
+    "ganacheGasLimit": "0xfffffffffff",
+    "ganacheGasPrice": "0x01",
+    "etherBalance": "100000",
+    "extra": ""
   },
   "dependencies": {
-    "core-js": "^2.5.3",
-    "ethers": "^2.2.6"
+    "ethers": "^4.0.15"
   },
   "devDependencies": {
-    "@types/jest": "^22.1.2",
-    "dotenv": "^5.0.0",
-    "express": "^4.16.2",
-    "file-loader": "^1.1.6",
-    "fork-ts-checker-webpack-plugin": "^0.4.0",
-    "ganache-cli": "7.0.0-beta.0",
-    "html-webpack-plugin": "^3.0.4",
-    "jest": "^22.3.0",
-    "node-fetch": "^2.0.0",
-    "prettier": "^1.10.2",
-    "serve": "^6.4.9",
-    "source-map-loader": "^0.2.1",
-    "truffle": "^4.0.6",
-    "truffle-hdwallet-provider": "^0.0.3",
-    "ts-jest": "^22.0.4",
-    "ts-loader": "^4.0.1",
-    "tslint": "^5.9.1",
-    "typescript": "2.7.2",
-    "uglifyjs-webpack-plugin": "^1.1.8",
-    "url-loader": "^1.0.1",
-    "webpack": "^4.0.1",
-    "webpack-assets-by-type-plugin": "^0.1.0",
-    "webpack-bundle-analyzer": "^2.10.0",
-    "webpack-cli": "^2.0.10",
-    "webpack-dev-server": "^3.1.0",
-    "zeppelin-solidity": "^1.6.0"
-  },
-  "jest": {
-    "globals": {
-      "ts-jest": {
-        "skipBabel": true
-      }
-    },
-    "setupFiles": [
-      "<rootDir>/config/tests/browserMocks.js"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "transform": {
-      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-    },
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/config/tests/fileMock.js",
-      "\\.(css|scss)$": "<rootDir>/config/tests/styleMock.js"
-    }
+    "@types/chai-as-promised": "^7.1.0",
+    "@types/chai-string": "^1.4.1",
+    "@types/mocha": "^5.2.5",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "chai-bignumber": "^3.0.0",
+    "chai-string": "^1.5.0",
+    "dotenv": "^6.1.0",
+    "eth-gas-reporter": "^0.1.12",
+    "ganache-cli": "6.1.8",
+    "openzeppelin-eth": "^2.0.2",
+    "solc": "^0.4.24",
+    "solium": "^1.1.8",
+    "truffle": "^5.0.0-beta.2",
+    "truffle-contract": "^3.0.6",
+    "truffle-deploy-registry": "^0.4.2",
+    "truffle-hdwallet-provider": "^1.0.0-web3one.2",
+    "tslint": "^5.11.0",
+    "typechain": "^0.3.9",
+    "typescript": "3.1.6",
+    "zos-lib": "^2.0.1"
   }
 }

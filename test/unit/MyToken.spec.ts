@@ -99,7 +99,6 @@ contract('MyToken', (accounts: string[]) => {
 
       let miscBalance = await aliceMyToken.functions.balanceOf(miscAddress)
       expect(miscBalance).to.be.eql(new BigNumber(50))
-
     })
 
   })

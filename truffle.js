@@ -1,10 +1,20 @@
-require("dotenv").config()
-var HDWalletProvider = require("truffle-hdwallet-provider")
+const path = require("path")
+const dotenv = require("dotenv")
+const HDWalletProvider = require("truffle-hdwallet-provider")
 
 const provider = network => () => {
+  const envFile = path.resolve(__dirname, `config/${network}.env`)
+  const envLoad = dotenv.load({ path: envFile })
+
+  if (envLoad.error) {
+    console.error(envLoad.error)
+    process.exit(1)
+  }
+  const config = envLoad.parsed
+
   return new HDWalletProvider(
-    process.env.ETH_MNENOMIC,
-    `https://${network}.infura.io/v3/${process.env.INFURA_API_KEY}`
+    config['ETH_MNEMONIC'],
+    `https://${network}.infura.io/v3/${config['INFURA_API_KEY']}`
   )
 }
 

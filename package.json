@@ -5,12 +5,10 @@
   "license": "none",
   "scripts": {
     "build": "truffle compile --all && yarn gen:contract-typings && tsc -b",
-    "migrate": "yarn clean:networks && truffle migrate --network ganache --reset",
-    "deploy:ganache": "yarn migrate",
-    "deploy:rinkeby": "truffle migrate --network rinkeby",
-    "test": "yarn clean:networks && tsc -b && truffle test --network ganache dist/**/*.spec.js",
-    "clean": "rm -rf dist build && yarn clean:networks",
+    "clean": "rm -rf build && yarn clean:networks",
     "clean:networks": "rm -f networks/127001.json",
+    "migrate": "yarn clean:networks && truffle migrate --network ganache --reset",
+    "test": "yarn clean:networks && tsc -b && truffle test --network ganache build/scripts/**/*.spec.js",
     "gen:contract-typings": "typechain --target ethers --outDir typings/contracts './build/contracts/*.json'",
     "lint": "yarn lint:ts && yarn lint:sol",
     "lint:fix": "yarn lint:ts:fix && yarn lint:sol:fix",
@@ -20,7 +18,9 @@
     "lint:ts:fix": "tslint -c tslint.json -p . --fix",
     "ganache": "ganache-cli --networkId ${npm_package_config_ganacheNetworkID} --host 0.0.0.0 --port ${npm_package_config_ganachePort} --gasLimit ${npm_package_config_ganacheGasLimit} --gasPrice ${npm_package_config_ganacheGasPrice} --defaultBalanceEther ${npm_package_config_etherBalance} --deterministic --mnemonic \"${npm_package_config_mnemonic}\" ${npm_package_config_extra}",
     "ganache:verbose": "ganache-cli --networkId ${npm_package_config_ganacheNetworkID} --verbose --host 0.0.0.0 --port ${npm_package_config_ganachePort} --gasLimit ${npm_package_config_ganacheGasLimit} --gasPrice ${npm_package_config_ganacheGasPrice} --defaultBalanceEther ${npm_package_config_etherBalance} --deterministic --mnemonic \"${npm_package_config_mnemonic}\" ${npm_package_config_extra}",
-    "ganache:stop": "ps aux | grep ganache-cli | grep -v grep | awk '{print $2}' | xargs kill -9"
+    "ganache:stop": "ps aux | grep ganache-cli | grep -v grep | awk '{print $2}' | xargs kill -9",
+    "deploy:ganache": "yarn migrate",
+    "deploy:rinkeby": "truffle migrate --network rinkeby"
   },
   "config": {
     "mnemonic": "dose weasel clever culture letter volume endorse used harvest ripple circle install",
@@ -54,7 +54,7 @@
     "truffle-hdwallet-provider": "^1.0.0-web3one.2",
     "tslint": "^5.11.0",
     "typechain": "^0.3.9",
-    "typescript": "3.1.6",
+    "typescript": "3.2.1",
     "zos-lib": "^2.0.1"
   }
 }

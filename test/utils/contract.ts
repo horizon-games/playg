@@ -5,8 +5,6 @@
 
 import * as ethers from 'ethers'
 
-console.log('==========>', process.env)
-
 interface NetworkMapping {
   [networkId: number]: { address: string }
 }

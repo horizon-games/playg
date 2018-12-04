@@ -5,12 +5,12 @@ import chaiString from 'chai-string'
 import * as ethers from 'ethers'
 
 export * from './contract'
-export * from './misc'
+export * from './helpers'
 
 const BigNumber = ethers.utils.BigNumber
 export { BigNumber }
 
-export const expect = chai
+export const { assert, expect } = chai
   .use(chaiString)
   .use(chaiAsPromised)
-  .use(chaiBignumber(ethers.utils.BigNumber)).expect
+  .use(chaiBignumber(ethers.utils.BigNumber))

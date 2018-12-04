@@ -34,7 +34,6 @@ contract('MyToken', (accounts: string[]) => {
   let aliceMyToken: MyToken
 
   // load contract abi and deploy to test server
-  // @ts-ignore
   before(async () => {
     // ETH account address of the wallet
     ownerAddress = await ownerWallet.getAddress()

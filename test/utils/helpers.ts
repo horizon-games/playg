@@ -16,4 +16,3 @@ export const createTestWallet = (web3: any, addressIndex: number = 0) => {
 
   return { wallet, provider, signer }
 }
-

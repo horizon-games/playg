@@ -4,12 +4,19 @@
 import { Contract, ContractTransaction, EventFilter } from "ethers";
 import { Provider } from "ethers/providers";
 import { BigNumber } from "ethers/utils";
+import { TransactionOverrides } from ".";
 
 export class Migrations extends Contract {
   functions: {
-    setCompleted(completed: number | string): Promise<ContractTransaction>;
+    setCompleted(
+      completed: number | string | BigNumber,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
 
-    upgrade(new_address: string): Promise<ContractTransaction>;
+    upgrade(
+      new_address: string,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
 
     last_completed_migration(): Promise<BigNumber>;
     owner(): Promise<string>;

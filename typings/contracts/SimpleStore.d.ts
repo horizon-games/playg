@@ -4,10 +4,14 @@
 import { Contract, ContractTransaction, EventFilter } from "ethers";
 import { Provider } from "ethers/providers";
 import { BigNumber } from "ethers/utils";
+import { TransactionOverrides } from ".";
 
 export class SimpleStore extends Contract {
   functions: {
-    setValue(value: string): Promise<ContractTransaction>;
+    setValue(
+      value: string,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
 
     getValue(): Promise<string>;
   };

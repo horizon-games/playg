@@ -45,7 +45,7 @@
     "dotenv": "^6.2.0",
     "eth-gas-reporter": "^0.1.12",
     "ganache-cli": "6.2.5",
-    "openzeppelin-eth": "^2.0.2",
+    "openzeppelin-solidity": "^2.1.2",
     "solc": "^0.5.2",
     "solium": "^1.2.2",
     "truffle": "^5.0.2",

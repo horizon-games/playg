@@ -4,16 +4,20 @@
 import { Contract, ContractTransaction, EventFilter } from "ethers";
 import { Provider } from "ethers/providers";
 import { BigNumber } from "ethers/utils";
+import { TransactionOverrides } from ".";
 
 export class MinterRole extends Contract {
   functions: {
     isMinter(account: string): Promise<boolean>;
 
-    initialize(sender: string): Promise<ContractTransaction>;
+    addMinter(
+      account: string,
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
 
-    addMinter(account: string): Promise<ContractTransaction>;
-
-    renounceMinter(): Promise<ContractTransaction>;
+    renounceMinter(
+      overrides?: TransactionOverrides
+    ): Promise<ContractTransaction>;
   };
   filters: {
     MinterAdded(account: string | null): EventFilter;

@@ -33,6 +33,11 @@ module.exports = {
       gas: 6750000
     }
   },
+  compilers: {
+    solc: {
+      version: "./node_modules/solc"
+    }
+  },
   solc: {
     optimizer: {
       enabled: true,

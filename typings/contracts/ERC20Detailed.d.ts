@@ -34,7 +34,7 @@ export class ERC20Detailed extends Contract {
     totalSupply(): Promise<BigNumber>;
     name(): Promise<string>;
     symbol(): Promise<string>;
-    decimals(): Promise<BigNumber>;
+    decimals(): Promise<number>;
   };
   filters: {
     Transfer(from: string | null, to: string | null, value: null): EventFilter;

@@ -63,8 +63,8 @@ export class MyToken extends Contract {
     name(): Promise<string>;
     totalSupply(): Promise<BigNumber>;
     INITIAL_SUPPLY(): Promise<BigNumber>;
-    decimals(): Promise<BigNumber>;
-    _decimals(): Promise<BigNumber>;
+    decimals(): Promise<number>;
+    _decimals(): Promise<number>;
     symbol(): Promise<string>;
     _symbol(): Promise<string>;
     _name(): Promise<string>;

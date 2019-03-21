@@ -2,7 +2,7 @@
   "name": "playg",
   "version": "0.1.0",
   "private": true,
-  "license": "none",
+  "license": "MIT",
   "scripts": {
     "build": "truffle compile --all && yarn gen:contract-typings && tsc -b",
     "clean": "rm -rf build && yarn clean:networks",

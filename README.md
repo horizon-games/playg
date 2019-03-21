@@ -41,3 +41,8 @@ https://github.com/horizon-games/walley/blob/master/example-simple/index.html
 for sample usage of Ether.js. This code will also work with Metamask or any
 "web3" wallet that injects the `window.web3` proxy interface to the external
 wallet.
+
+
+## LICENSE
+
+MIT

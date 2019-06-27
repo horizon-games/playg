@@ -49,7 +49,6 @@ module.exports = {
     reporterOptions: {
       currency: "USD",
       gasPrice: 21,
-      outputFile: "/dev/null",
       showTimeSpent: true
     }
   }

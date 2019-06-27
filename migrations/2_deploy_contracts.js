@@ -9,9 +9,9 @@ const SimpleStore = artifacts.require("SimpleStore");
 
 module.exports = function(deployer, network) {
 
-  deploy = (artifact, links) => {
+  deploy = (artifact) => {
     deployer.deploy(artifact).then(instance => {
-      deployer.link(artifact, links);
+      deployer.link(artifact);
       if (!tdr.isDryRunNetworkName(network)) {
         return tdr.appendInstance(instance);
       }

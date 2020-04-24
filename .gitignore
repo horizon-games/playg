@@ -1,5 +1,9 @@
-.vscode
-build
-dist
+#Buidler files
+cache
+artifacts
+
 node_modules
-networks/127001.json
+typings/*
+
+config/*
+!config/template.env

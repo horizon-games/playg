@@ -5,10 +5,12 @@
   "license": "MIT",
   "scripts": {
     "buidler": "buidler",
+    "node": "buidler node",
     "test": "TS_NODE_TRANSPILE_ONLY=1 buidler test",
     "build": "rm -rf typings && buidler clean && yarn compile && yarn gen:typings",
     "compile": "buidler --max-memory 4096 compile",
     "gen:typings": "rm -f typings/contracts/* && typechain --target ethers --outDir typings/contracts './artifacts/*.json'",
+    "deploy:ganache": "buidler run --network ganache scripts/deploy.ts",
     "deploy:rinkeby-dev": "buidler run --network dev scripts/deploy.ts"
   },
   "devDependencies": {
@@ -28,5 +30,8 @@
     "typechain": "^1.0.5",
     "typechain-target-ethers": "^1.0.4",
     "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "multi-token-standard": "^0.9.4"
   }
 }

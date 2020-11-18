@@ -1,5 +1,7 @@
-import { ethers, run, network } from '@nomiclabs/buidler'
-// import { registerDeployment } from './registry'
+import { ethers, run, network } from 'hardhat'
+import { registerDeployment } from './registry'
+
+import {Counter__factory} from '../typings/contracts/factories/Counter__factory'
 
 const main = async () => {
   // make sure contracts are compiled
@@ -7,14 +9,13 @@ const main = async () => {
 
   console.log('deploying to ... ', network.name)
 
-  const CONTRACT_NAME = 'Counter'
+  const signer = ethers.provider.getSigner()
 
-  const factory = await ethers.getContract(CONTRACT_NAME)
+  const contractFactory = new Counter__factory(signer)
 
-  const contract = await factory.deploy()
+  const contract = await contractFactory.deploy()
   
-  // registerDeployment(contract, CONTRACT_NAME)
-  // console.log('deployment registered')
+  registerDeployment(contract, 'Counter', network.name)
   
   try {
     await contract.deployed()
@@ -26,17 +27,10 @@ const main = async () => {
 
   // await run('verify-contract', `--contract-name ${CONTRACT_NAME} --address ${contract.address}`)
 
-  console.log(CONTRACT_NAME, 'deployed at', contract.address)
+  console.log('deployed at', contract.address)
   console.log('deploy tx hash:', contract.deployTransaction.hash)
-  // console.log(contract.interface)
 
-  const tempC = new ethers.Contract(
-    contract.address,
-    contract.interface,
-    ethers.getDefaultProvider()
-  )
-
-  console.log(tempC.functions)
+  console.log('Functions:', contractFactory.attach(contract.address).functions)
 }
 
 // We recommend this pattern to be able to use async/await everywhere

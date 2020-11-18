@@ -2,9 +2,9 @@ import * as ethers from 'ethers'
 import * as fs from 'fs'
 import { promisify } from 'util'
 
-export const registerDeployment = async (c: ethers.Contract, name: string) => {
+export const registerDeployment = async (c: ethers.Contract, name: string, network: string) => {
   promisify(fs.writeFile)(
-    `${name}.json`,
+    `./networks/${network}.json`,
     JSON.stringify(
       [
         {
@@ -16,6 +16,7 @@ export const registerDeployment = async (c: ethers.Contract, name: string) => {
       ],
       null,
       2
-    )
+    ),
+    { flag: 'w+' }
   )
 }

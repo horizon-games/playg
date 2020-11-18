@@ -1,6 +1,6 @@
-pragma solidity 0.6.8;
+pragma solidity 0.7.4;
 
-import "@nomiclabs/buidler/console.sol";
+import "hardhat/console.sol";
 
 contract Counter {
   uint256 count = 0;

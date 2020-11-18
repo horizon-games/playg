@@ -1,20 +1,20 @@
 import chai from 'chai'
-import { deployContract, getWallets, solidity } from 'ethereum-waffle'
+import { solidity } from 'ethereum-waffle'
 
-import CounterArtifact from '../artifacts/Counter.json'
+import CounterArtifact from '../artifacts/contracts/Counter.sol/Counter.json'
 import { Counter } from '../typings/contracts/Counter'
-import { waffle } from '@nomiclabs/buidler'
+import { waffle, ethers } from 'hardhat'
 
 chai.use(solidity)
 const { expect } = chai
 
-describe('Counter', () => {
-  let [wallet] = getWallets(waffle.provider)
-
+describe('Counter',  () => {
+  
   let counter: Counter
-
+  
   beforeEach(async () => {
-    counter = (await deployContract(wallet, CounterArtifact)) as Counter
+    let [wallet] = await ethers.getSigners()
+    counter = (await waffle.deployContract(wallet, CounterArtifact)) as Counter
     const initialCount = await counter.getCount()
 
     expect(initialCount).to.eq(0)

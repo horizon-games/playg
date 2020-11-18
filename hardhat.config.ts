@@ -1,8 +1,6 @@
 import { HardhatUserConfig } from 'hardhat/config'
 import { networkConfig } from './utils/configLoader'
 import "@nomiclabs/hardhat-etherscan"
-// import "hardhat-gas-reporter"
-//buidler-waffle includes buidler-ethers
 import "@nomiclabs/hardhat-ethers"
 import "@nomiclabs/hardhat-waffle"
 
